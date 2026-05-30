@@ -1,0 +1,36 @@
+name: CI
+
+on:
+  push:
+    branches: [ "main", "master" ]
+  pull_request:
+    branches: [ "main", "master" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout del código
+      uses: actions/checkout@v4
+
+    - name: Configurar Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20.x'
+
+    - name: Instalar dependencias del Backend
+      run: npm install
+      working-directory: ./backend
+
+    - name: Instalar dependencias del Frontend
+      run: npm install
+      working-directory: ./frontend
+
+    - name: Validar sintaxis (Lint) del Frontend
+      run: npm run lint
+      working-directory: ./frontend
+
+    - name: Construir (Build) del Frontend
+      run: npm run build
+      working-directory: ./frontend
