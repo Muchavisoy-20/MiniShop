@@ -6,16 +6,15 @@ import Login from './pages/Login';
 import AdminDashboard from './pages/AdminDashboard';
 
 export default function App() {
-  const [user, setUser] = useState(null);
-
-  useEffect(() => {
+  const [user, setUser] = useState(() => {
     const token = localStorage.getItem('token');
     const role = localStorage.getItem('role');
     const username = localStorage.getItem('username');
     if (token && role && username) {
-      setUser({ role, username });
+      return { role, username };
     }
-  }, []);
+    return null;
+  });
 
   return (
     <BrowserRouter>

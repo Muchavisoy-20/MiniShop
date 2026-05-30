@@ -15,10 +15,6 @@ export default function AdminDashboard() {
     image_url: ''
   });
 
-  useEffect(() => {
-    loadProducts();
-  }, []);
-
   const loadProducts = async () => {
     try {
       const data = await products.getAll();
@@ -27,6 +23,10 @@ export default function AdminDashboard() {
       console.error(err);
     }
   };
+
+  useEffect(() => {
+    loadProducts();
+  }, []);
 
   const handleOpenModal = (product = null) => {
     if (product) {
@@ -78,6 +78,7 @@ export default function AdminDashboard() {
         loadProducts();
       } catch (err) {
         alert('Error eliminando producto');
+        console.error(err);
       }
     }
   };
